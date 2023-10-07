@@ -22,6 +22,8 @@ dependencies = [
   'numpy>=1.21',
   'packaging',
   'psutil',
+  'pyparallel; sys_platform == "linux"',
+  'pyserial',
 ]
 description = 'Provides byte (0 to 255) triggers on serial/parallel ports and on LSL streams. '
 keywords = [
