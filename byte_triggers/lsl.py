@@ -1,7 +1,7 @@
 """Trigger using an LSL outlet."""
 
 import numpy as np
-from bsl.lsl import StreamInfo, StreamOutlet
+from mne_lsl.lsl import StreamInfo, StreamOutlet
 
 from ._base import BaseTrigger
 from .utils._checks import check_type
@@ -19,7 +19,7 @@ class LSLTrigger(BaseTrigger):
 
     .. warning::
 
-        Make sure to close the :class:`~bsl.lsl.StreamOutlet` by calling the
+        Make sure to close the :class:`~mne_lsl.lsl.StreamOutlet` by calling the
         :meth:`~byte_triggers.LSLTrigger.close` method or by deleting the trigger
         after use.
 
@@ -30,7 +30,7 @@ class LSLTrigger(BaseTrigger):
 
     Notes
     -----
-    The :class:`~bsl.lsl.StreamOutlet` created has the following properties:
+    The :class:`~mne_lsl.lsl.StreamOutlet` created has the following properties:
 
     * Name: ``f"{name}"``
     * Type: ``"Markers"``
@@ -93,7 +93,7 @@ class LSLTrigger(BaseTrigger):
     def sinfo(self) -> StreamInfo:
         """Description of the trigger outlet.
 
-        :type: `~bsl.lsl.StreamInfo`
+        :type: `~mne_lsl.lsl.StreamInfo`
         """
         return self._sinfo
 
@@ -101,6 +101,6 @@ class LSLTrigger(BaseTrigger):
     def outlet(self) -> StreamOutlet:
         """Trigger outlet.
 
-        :type: `~bsl.lsl.StreamOutlet`
+        :type: `~mne_lsl.lsl.StreamOutlet`
         """
         return self._outlet
