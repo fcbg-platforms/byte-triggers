@@ -164,7 +164,7 @@ class ParallelPortTrigger(BaseTrigger):
             raise RuntimeError(
                 "macOS does not support built-in parallel port. "
                 "Please use an arduino to LPT converter for hardware triggers "
-                "or mne_lsl.triggers.LSLTrigger for software triggers."
+                "or byte_triggers.LSLTrigger for software triggers."
             )
         elif ParallelPort is None and system() != "Linux":
             raise RuntimeError(

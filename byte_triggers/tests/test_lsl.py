@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from mne_lsl.lsl import StreamInfo, StreamInlet, StreamOutlet, resolve_streams
+from bsl.lsl import StreamInfo, StreamInlet, StreamOutlet, resolve_streams
 
 from byte_triggers import LSLTrigger, logger, set_log_level
 
