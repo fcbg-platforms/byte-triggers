@@ -2,7 +2,7 @@
 
 from io import StringIO
 
-from ..config import sys_info
+from byte_triggers.utils.config import sys_info
 
 
 def test_sys_info():

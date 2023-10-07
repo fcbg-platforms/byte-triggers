@@ -6,7 +6,13 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from .._checks import check_type, check_value, check_verbose, ensure_int, ensure_path
+from byte_triggers.utils._checks import (
+    check_type,
+    check_value,
+    check_verbose,
+    ensure_int,
+    ensure_path,
+)
 
 
 def test_ensure_int():
