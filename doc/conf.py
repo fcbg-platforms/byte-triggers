@@ -9,19 +9,17 @@ from datetime import date
 from importlib import import_module
 from typing import Dict, Optional
 
-from sphinx_gallery.sorting import FileNameSortKey
-
-import template
+import byte_triggers
 
 # -- project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "template-python"
+project = "byte-triggers"
 author = "Mathieu Scheltienne"
 copyright = f"{date.today().year}, {author}"
-release = template.__version__
-package = template.__name__
-gh_url = "https://github.com/mscheltienne/template-python"
+release = byte_triggers.__version__
+package = byte_triggers.__name__
+gh_url = "https://github.com/fcbg-hnp-meeg/byte-triggers"
 
 # -- general configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -47,7 +45,6 @@ extensions = [
     "sphinxcontrib.bibtex",
     "sphinx_copybutton",
     "sphinx_design",
-    "sphinx_gallery.gen_gallery",
     "sphinx_issues",
 ]
 
@@ -218,20 +215,3 @@ def linkcode_resolve(domain: str, info: Dict[str, str]) -> Optional[str]:
     fname = fname.rsplit(f"/{package}/")[1]
     url = f"{gh_url}/blob/{branch}/{package}/{fname}#{lines}"
     return url
-
-
-# -- sphinx-gallery ----------------------------------------------------------
-sphinx_gallery_conf = {
-    "backreferences_dir": "generated/backreferences",
-    "doc_module": (f"{package}",),
-    "examples_dirs": ["../tutorials"],
-    "exclude_implicit_doc": {},  # set
-    "filename_pattern": r"\d{2}_",
-    "gallery_dirs": ["generated/tutorials"],
-    "line_numbers": False,
-    "plot_gallery": True,
-    "reference_url": {f"{package}": None},
-    "remove_config_comments": True,
-    "show_memory": True,
-    "within_subsection_order": FileNameSortKey,
-}
