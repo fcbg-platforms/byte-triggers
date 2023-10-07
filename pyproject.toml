@@ -119,6 +119,7 @@ omit = [
   '**/__init__.py',
   '**/byte_triggers/_version.py',
   '**/byte_triggers/commands/*',
+  '**/byte_triggers/io/**',
   '**/byte_triggers/utils/_fixes.py',
   '**/tests/**',
 ]
