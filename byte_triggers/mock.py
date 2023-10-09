@@ -2,7 +2,7 @@
 
 from ._base import BaseTrigger
 from .utils._docs import copy_doc
-from .utils.logs import logger
+from .utils.logs import logger, _use_log_level
 
 
 class MockTrigger(BaseTrigger):
@@ -17,4 +17,5 @@ class MockTrigger(BaseTrigger):
     @copy_doc(BaseTrigger.signal)
     def signal(self, value: int) -> None:
         value = super().signal(value)
-        logger.info("Mock set to %i.", value)
+        with _use_log_level("INFO"):
+            logger.info("Mock set to %i.", value)
