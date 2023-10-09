@@ -8,6 +8,7 @@ import psutil
 from packaging.requirements import Requirement
 
 from ._checks import check_type
+from .logs import _use_log_level
 
 
 def sys_info(fid: Optional[IO] = None, developer: bool = False):
@@ -16,8 +17,8 @@ def sys_info(fid: Optional[IO] = None, developer: bool = False):
     Parameters
     ----------
     fid : file-like | None
-        The file to write to, passed to :func:`print`. Can be None to use
-        :data:`sys.stdout`.
+        The file to write to, passed to :func:`print`.
+        Can be None to use :data:`sys.stdout`.
     developer : bool
         If True, display information about optional dependencies.
     """
@@ -26,8 +27,9 @@ def sys_info(fid: Optional[IO] = None, developer: bool = False):
     ljust = 26
     out = partial(print, end="", file=fid)
     package = __package__.split(".")[0]
+    unicode = sys.stdout.encoding.lower().startswith("utf")
 
-    # OS information - requires python 3.8 or above
+    # OS information
     out("Platform:".ljust(ljust) + platform.platform() + "\n")
     # python information
     out("Python:".ljust(ljust) + sys.version.replace("\n", " ") + "\n")
@@ -43,12 +45,25 @@ def sys_info(fid: Optional[IO] = None, developer: bool = False):
     out(f"{psutil.swap_memory().total / float(2 ** 30):0.1f} GB\n")
     # package information
     out(f"{package}:".ljust(ljust) + version(package) + "\n")
+    try:
+        with _use_log_level("CRITICAL"):
+            from mne_lsl.lsl import library_version
+            from mne_lsl.lsl.load_liblsl import lib
+        out(
+            "liblsl:".ljust(ljust)
+            + f"{library_version() // 100}.{library_version() % 100} ({lib._name})\n"
+        )
+    except Exception:
+        if unicode:
+            out("liblsl:".ljust(ljust) + "⚠ not found ⚠\n")
+        else:
+            out("liblsl:".ljust(ljust) + "not found\n")
 
     # dependencies
     out("\nCore dependencies\n")
     dependencies = [Requirement(elt) for elt in requires(package)]
     core_dependencies = [dep for dep in dependencies if "extra" not in str(dep.marker)]
-    _list_dependencies_info(out, ljust, package, core_dependencies)
+    _list_dependencies_info(out, ljust, package, core_dependencies, unicode)
 
     # extras
     if developer:
@@ -67,17 +82,19 @@ def sys_info(fid: Optional[IO] = None, developer: bool = False):
             if len(extra_dependencies) == 0:
                 continue
             out(f"\nOptional '{key}' dependencies\n")
-            _list_dependencies_info(out, ljust, package, extra_dependencies)
+            _list_dependencies_info(out, ljust, package, extra_dependencies, unicode)
 
 
 def _list_dependencies_info(
-    out: Callable, ljust: int, package: str, dependencies: List[Requirement]
+    out: Callable,
+    ljust: int,
+    package: str,
+    dependencies: List[Requirement],
+    unicode: bool,
 ):
     """List dependencies names and versions."""
-    unicode = sys.stdout.encoding.lower().startswith("utf")
     if unicode:
         ljust += 1
-
     not_found: List[Requirement] = list()
     for dep in dependencies:
         if dep.name == package:
