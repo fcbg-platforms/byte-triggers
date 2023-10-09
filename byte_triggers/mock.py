@@ -2,7 +2,7 @@
 
 from ._base import BaseTrigger
 from .utils._docs import copy_doc
-from .utils.logs import logger, _use_log_level
+from .utils.logs import _use_log_level, logger
 
 
 class MockTrigger(BaseTrigger):
