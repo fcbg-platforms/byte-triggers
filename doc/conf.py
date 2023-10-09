@@ -103,6 +103,7 @@ autoclass_content = "class"
 intersphinx_mapping = {
     "matplotlib": ("https://matplotlib.org/stable", None),
     "mne": ("https://mne.tools/stable/", None),
+    "mne_lsl": ("https://mne.tools/mne-lsl/", None),
     "numpy": ("https://numpy.org/doc/stable", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
     "python": ("https://docs.python.org/3", None),
