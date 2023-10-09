@@ -19,6 +19,12 @@ Install
 
             $ pip install byte-triggers
 
+    .. tab-item:: conda-forge
+
+        .. code-block:: console
+
+            $ conda install -c conda-forge byte-triggers
+
     .. tab-item:: Source
 
         .. code-block:: console
@@ -38,5 +44,5 @@ The development is supported by the
 .. toctree::
    :hidden:
 
-   api/index
-   changes/index
+   api/index.rst
+   arduino2lpt.rst

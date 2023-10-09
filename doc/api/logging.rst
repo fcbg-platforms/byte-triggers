@@ -1,10 +1,10 @@
 Logging
-=======
+-------
 
-.. currentmodule:: template
+.. currentmodule:: byte_triggers
 
 .. autosummary::
-    :toctree: generated/
+    :toctree: ../generated/api/
 
     add_file_handler
     set_log_level

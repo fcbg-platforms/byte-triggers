@@ -46,6 +46,7 @@ extensions = [
     "sphinx_copybutton",
     "sphinx_design",
     "sphinx_issues",
+    "sphinx_remove_toctrees",
 ]
 
 templates_path = ["_templates"]
@@ -215,3 +216,6 @@ def linkcode_resolve(domain: str, info: Dict[str, str]) -> Optional[str]:
     fname = fname.rsplit(f"/{package}/")[1]
     url = f"{gh_url}/blob/{branch}/{package}/{fname}#{lines}"
     return url
+
+# -- sphinx-remove-toctrees ------------------------------------------------------------
+remove_from_toctrees = ["generated/api/*"]
