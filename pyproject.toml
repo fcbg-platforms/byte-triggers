@@ -26,7 +26,7 @@ dependencies = [
   'pyparallel; sys_platform == "linux"',
   'pyserial',
 ]
-description = 'Provides byte (0 to 255) triggers on serial/parallel ports and on LSL streams. '
+description = 'Provides byte (0 to 255) triggers on serial/parallel ports and on LSL streams.'
 keywords = [
   'parallel',
   'python',
@@ -62,7 +62,7 @@ doc = [
   'sphinx-copybutton',
   'sphinx-design',
   'sphinx-issues',
-  'sphinx-remove-toctrees @ git+https://github.com/mscheltienne/sphinx-remove-toctrees',
+  'sphinx-remove-toctrees',
   'sphinxcontrib-bibtex',
 ]
 full = [
@@ -88,7 +88,7 @@ byte_triggers-sys_info = 'byte_triggers.commands.sys_info:run'
 
 [project.urls]
 documentation = 'https://fcbg-hnp-meeg.github.io/byte-triggers'
-homepage = 'https://github.com/fcbg-hnp-meeg/byte-triggers'
+homepage = 'https://fcbg-hnp-meeg.github.io/byte-triggers'
 source = 'https://github.com/fcbg-hnp-meeg/byte-triggers'
 tracker = 'https://github.com/fcbg-hnp-meeg/byte-triggers/issues'
 
