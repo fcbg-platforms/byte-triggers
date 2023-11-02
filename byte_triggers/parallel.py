@@ -4,6 +4,7 @@ import threading
 import time
 from platform import system
 from typing import Optional, Union
+from warnings import warn
 
 from ._base import BaseTrigger
 from .utils._checks import check_type, check_value, ensure_int
@@ -68,6 +69,14 @@ class ParallelPortTrigger(BaseTrigger):
 
         # initialize port
         if self._port_type == "arduino":
+            if system() == "Linux":
+                warn(
+                    "On Linux, the arduino to parallel-port converter works reliably "
+                    "for ~10 minutes, after which some sort of overflow occurs and "
+                    "impacts negatively the timing of the triggers. Use at your own "
+                    "discretion.",
+                    RuntimeWarning,
+                )
             import_optional_dependency(
                 "serial", extra="Install 'pyserial' for ARDUINO support."
             )
