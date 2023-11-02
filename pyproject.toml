@@ -76,6 +76,7 @@ style = [
   'pydocstyle[toml]',
   'ruff',
   'toml-sort',
+  'yamllint',
 ]
 test = [
   'pytest',
@@ -122,6 +123,7 @@ omit = [
   '**/byte_triggers/commands/*',
   '**/byte_triggers/io/**',
   '**/byte_triggers/utils/_fixes.py',
+  '**/conftest.py',
   '**/tests/**',
 ]
 

@@ -1,15 +1,19 @@
 """Utility functions for checking types and values. Inspired from MNE."""
 
+from __future__ import annotations  # c.f. PEP 563, PEP 649
+
 import logging
 import operator
 import os
-from collections.abc import Sequence
 from pathlib import Path
-from typing import Any, Optional
+from typing import TYPE_CHECKING
 
 import numpy as np
 
 from ._docs import fill_doc
+
+if TYPE_CHECKING:
+    from typing import Any, Optional
 
 
 def ensure_int(item: Any, item_name: Optional[str] = None) -> int:
@@ -64,7 +68,7 @@ _types = {
     "path-like": (str, Path, os.PathLike),
     "int-like": (_IntLike(),),
     "callable": (_Callable(),),
-    "array-like": (Sequence, np.ndarray),
+    "array-like": (list, tuple, set, np.ndarray),
 }
 
 
