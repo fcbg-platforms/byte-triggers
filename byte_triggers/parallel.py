@@ -47,6 +47,12 @@ class ParallelPortTrigger(BaseTrigger):
           LPT3 = 0x0278
 
     - macOS does not have support for built-in parallel ports.
+
+    .. warning::
+
+        On Linux, the arduino to parallel-port converter works reliably for ~10 minutes
+        after which some sort of overflow occurs and impacts negatively the timing of
+        the triggers. Use at your own discretion.
     """
 
     def __init__(
