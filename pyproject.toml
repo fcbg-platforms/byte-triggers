@@ -62,7 +62,6 @@ doc = [
   'sphinx-copybutton',
   'sphinx-design',
   'sphinx-issues',
-  'sphinx-remove-toctrees',
   'sphinxcontrib-bibtex',
 ]
 full = [
