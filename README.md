@@ -6,7 +6,7 @@
 
 # Byte-triggers
 
-Delviers integer triggers between 0 and 255 on a parallel port or on an LSL marker
+Delivers integer triggers between 0 and 255 on a parallel port or on an LSL marker
 stream.
 
 ## Install
