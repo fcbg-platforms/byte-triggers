@@ -58,7 +58,7 @@ jobs:
       - name: Run pytest
         run: pytest byte_triggers --cov=byte_triggers --cov-report=xml --cov-config=pyproject.toml
       - name: Upload to codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           files: ./coverage.xml
           flags: unittests  # optional
@@ -103,7 +103,7 @@ jobs:
       - name: Run pytest
         run: pytest byte_triggers --cov=byte_triggers --cov-report=xml --cov-config=pyproject.toml
       - name: Upload to codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           files: ./coverage.xml
           flags: unittests  # optional
