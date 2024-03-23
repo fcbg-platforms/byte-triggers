@@ -13,8 +13,6 @@ from typing import Dict, Optional
 
 import byte_triggers
 
-# -- path setup ------------------------------------------------------------------------
-sys.path.append(str(Path(__file__).parent / "_sphinxext"))
 
 # -- project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -51,7 +49,6 @@ extensions = [
     "sphinx_copybutton",
     "sphinx_design",
     "sphinx_issues",
-    # local extensions
     "sphinx_remove_toctrees",
 ]
 
