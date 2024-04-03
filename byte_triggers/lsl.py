@@ -72,10 +72,11 @@ class LSLTrigger(BaseTrigger):
 
     def close(self) -> None:
         """Close the LSL outlet."""
-        try:
-            del self._outlet
-        except Exception:  # pragma: no cover
-            pass
+        if hasattr(self, "_outlet"):
+            try:
+                del self._outlet
+            except Exception:  # pragma: no cover
+                pass
 
     def __del__(self):  # noqa: D105
         self.close()

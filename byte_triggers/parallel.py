@@ -239,7 +239,7 @@ class ParallelPortTrigger(BaseTrigger):
         This method should free the parallel or serial port and let other
         application or python process use it.
         """
-        if self._port_type == "arduino":
+        if hasattr(self, "_port_type") and self._port_type == "arduino":
             try:
                 self._port.close()
             except Exception:
