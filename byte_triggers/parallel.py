@@ -1,10 +1,9 @@
 """Trigger using an parallel port."""
 
-import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 from platform import system
 from typing import Optional, Union
-from warnings import warn
 
 from ._base import BaseTrigger
 from .utils._checks import check_type, check_value, ensure_int
@@ -47,12 +46,6 @@ class ParallelPortTrigger(BaseTrigger):
           LPT3 = 0x0278
 
     - macOS does not have support for built-in parallel ports.
-
-    .. warning::
-
-        On Linux, the arduino to parallel-port converter works reliably for ~10 minutes
-        after which some sort of overflow occurs and impacts negatively the timing of
-        the triggers. Use at your own discretion.
     """
 
     def __init__(
@@ -75,14 +68,6 @@ class ParallelPortTrigger(BaseTrigger):
 
         # initialize port
         if self._port_type == "arduino":
-            if system() == "Linux":
-                warn(
-                    "On Linux, the arduino to parallel-port converter works reliably "
-                    "for ~10 minutes, after which some sort of overflow occurs and "
-                    "impacts negatively the timing of the triggers. Use at your own "
-                    "discretion.",
-                    RuntimeWarning,
-                )
             import_optional_dependency(
                 "serial", extra="Install 'pyserial' for ARDUINO support."
             )
@@ -100,8 +85,10 @@ class ParallelPortTrigger(BaseTrigger):
                 )
             self._address = address
             self._connect_pport()
-
-        self._signal_off()  # set pins to 0 and define self._offtimer
+        # set pins to 0 and prepare threadpool for resets
+        self._set_data(0)
+        self._executor = ThreadPoolExecutor(max_workers=1)
+        self._future = None
 
     @staticmethod
     def _infer_port_type(address: Union[int, str]) -> str:
@@ -208,23 +195,19 @@ class ParallelPortTrigger(BaseTrigger):
     @copy_doc(BaseTrigger.signal)
     def signal(self, value: int) -> None:
         value = super().signal(value)
-        if self._offtimer.is_alive():
+        if self._future is not None and not self._future.done():
             logger.warning(
                 "You are sending a new signal before the end of the "
                 "last signal. Signal ignored. Delay required = %.1f ms.",
                 self.delay,
             )
-        else:
-            self._set_data(value)
-            self._offtimer.start()
+        self._set_data(value)
+        self._future = self._executor.submit(self._signal_off())
 
     def _signal_off(self) -> None:
-        """Reset trigger signal to 0 and reset offtimer.
-
-        The offtimer reset is required because threads are one-call only.
-        """
+        """Reset trigger signal to 0."""
+        time.sleep(self._delay)
         self._set_data(0)
-        self._offtimer = threading.Timer(self._delay, self._signal_off)
 
     def _set_data(self, value: int) -> None:
         """Set data on the pin."""
@@ -236,8 +219,8 @@ class ParallelPortTrigger(BaseTrigger):
     def close(self) -> None:
         """Disconnect the parallel port.
 
-        This method should free the parallel or serial port and let other
-        application or python process use it.
+        This method should free the parallel or serial port and let other application or
+        python process use it.
         """
         if hasattr(self, "_port_type") and self._port_type == "arduino":
             try:
@@ -250,7 +233,7 @@ class ParallelPortTrigger(BaseTrigger):
             except Exception:
                 pass
 
-    def __del__(self):  # noqa: D105
+    def __del__(self) -> None:  # noqa: D105
         self.close()
 
     # --------------------------------------------------------------------
