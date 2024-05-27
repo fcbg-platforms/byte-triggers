@@ -28,12 +28,12 @@ dependencies = [
 ]
 description = 'Provides byte (0 to 255) triggers on serial/parallel ports and on LSL streams.'
 keywords = [
+  'events',
+  'lsl',
   'parallel',
   'python',
   'serial',
   'triggers',
-  'lsl',
-  'events',
 ]
 license = {file = 'LICENSE'}
 maintainers = [
@@ -143,8 +143,8 @@ minversion = '8.0'
 
 [tool.ruff]
 extend-exclude = [
-  'doc',
   'byte_triggers/io',
+  'doc',
 ]
 line-length = 88
 target-version = 'py39'
