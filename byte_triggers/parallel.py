@@ -59,7 +59,7 @@ class ParallelPortTrigger(BaseTrigger):
         self,
         address: Union[int, str],
         port_type: Optional[str] = None,
-        delay: int = 50,
+        delay: int = 10,
     ):
         check_type(address, ("int-like", str), "address")
         if not isinstance(address, str):
