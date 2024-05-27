@@ -1,8 +1,6 @@
-"""Test _imports.py"""
-
 import pytest
 
-from byte_triggers.utils._imports import import_optional_dependency
+from .._imports import import_optional_dependency
 
 
 def test_import_optional_dependency():

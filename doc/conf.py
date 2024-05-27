@@ -3,15 +3,19 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+from __future__ import annotations  # c.f. PEP 563, PEP 649
 
 import inspect
-import sys
 from datetime import date
 from importlib import import_module
-from pathlib import Path
-from typing import Dict, Optional
+from typing import TYPE_CHECKING
+
+from intersphinx_registry import get_intersphinx_mapping
 
 import byte_triggers
+
+if TYPE_CHECKING:
+    from typing import Optional
 
 
 # -- project information -----------------------------------------------------
@@ -68,13 +72,15 @@ modindex_common_prefix = [f"{package}."]
 default_role = "py:obj"
 
 # -- options for HTML output -------------------------------------------------
-html_theme = "furo"
-html_static_path = ["_static"]
 html_css_files = [
     "css/style.css",
 ]
-html_title = project
+html_permalinks_icon = "🔗"
 html_show_sphinx = False
+html_static_path = ["_static"]
+html_theme = "furo"
+html_title = project
+
 
 # Documentation to change footer icons:
 # https://pradyunsg.me/furo/customisation/footer/#changing-footer-icons
@@ -103,16 +109,12 @@ autodoc_warningiserror = True
 autoclass_content = "class"
 
 # -- intersphinx -------------------------------------------------------------
-intersphinx_mapping = {
-    "matplotlib": ("https://matplotlib.org/stable", None),
-    "mne": ("https://mne.tools/stable/", None),
-    "mne_lsl": ("https://mne.tools/mne-lsl/stable/", None),
-    "numpy": ("https://numpy.org/doc/stable", None),
-    "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
-    "python": ("https://docs.python.org/3", None),
-    "scipy": ("https://docs.scipy.org/doc/scipy", None),
-    "sklearn": ("https://scikit-learn.org/stable/", None),
-}
+intersphinx_mapping = get_intersphinx_mapping(
+    packages={
+        "matplotlib", "mne", "numpy", "pandas", "python", "scipy", "sklearn"
+    }
+)
+intersphinx_mapping["mne_lsl"] = ("https://mne.tools/mne-lsl/stable/", None)
 intersphinx_timeout = 5
 
 # -- sphinx-issues -----------------------------------------------------------
@@ -178,7 +180,7 @@ bibtex_bibfiles = ["./references.bib"]
 # https://www.sphinx-doc.org/en/master/usage/extensions/linkcode.html
 
 
-def linkcode_resolve(domain: str, info: Dict[str, str]) -> Optional[str]:
+def linkcode_resolve(domain: str, info: dict[str, str]) -> Optional[str]:
     """Determine the URL corresponding to a Python object.
 
     Parameters
@@ -221,6 +223,16 @@ def linkcode_resolve(domain: str, info: Dict[str, str]) -> Optional[str]:
     url = f"{gh_url}/blob/{branch}/{package}/{fname}#{lines}"
     return url
 
+
+# -- linkcheck -------------------------------------------------------------------------
+linkcheck_anchors = False  # saves a bit of time
+linkcheck_timeout = 15  # some can be quite slow
+linkcheck_retries = 3
+linkcheck_ignore = []  # will be compiled to regex
+
+# -- sphinx_copybutton -----------------------------------------------------------------
+copybutton_prompt_text = r">>> |\.\.\. |\$ |In \[\d*\]: | {2,5}\.\.\.: | {5,8}: "
+copybutton_prompt_is_regexp = True
 
 # -- sphinx-remove-toctrees ------------------------------------------------------------
 remove_from_toctrees = ["generated/api/*"]

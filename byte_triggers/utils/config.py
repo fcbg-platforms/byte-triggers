@@ -2,7 +2,7 @@ from __future__ import annotations  # c.f. PEP 563, PEP 649
 
 import platform
 import sys
-from functools import partial
+from functools import lru_cache, partial
 from importlib.metadata import requires, version
 from typing import TYPE_CHECKING
 
@@ -12,7 +12,7 @@ from packaging.requirements import Requirement
 from ._checks import check_type
 
 if TYPE_CHECKING:
-    from typing import IO, Callable, List, Optional
+    from typing import IO, Callable, Optional
 
 
 def sys_info(fid: Optional[IO] = None, developer: bool = False):
@@ -76,14 +76,14 @@ def sys_info(fid: Optional[IO] = None, developer: bool = False):
 
 
 def _list_dependencies_info(
-    out: Callable, ljust: int, package: str, dependencies: List[Requirement]
-):
+    out: Callable, ljust: int, package: str, dependencies: list[Requirement]
+) -> None:
     """List dependencies names and versions."""
     unicode = sys.stdout.encoding.lower().startswith("utf")
     if unicode:
         ljust += 1
 
-    not_found: List[Requirement] = list()
+    not_found: list[Requirement] = list()
     for dep in dependencies:
         if dep.name == package:
             continue
@@ -111,6 +111,12 @@ def _list_dependencies_info(
                 backend = "Not found"
 
             output += f" (backend: {backend})"
+        if dep.name == "pyvista":
+            version_, renderer = _get_gpu_info()
+            if version_ is None:
+                output += " (OpenGL unavailable)"
+            else:
+                output += f" (OpenGL {version_} via {renderer})"
         out(output + "\n")
 
     if len(not_found) != 0:
@@ -126,3 +132,15 @@ def _list_dependencies_info(
             out(f"✘ Not installed: {', '.join(not_found)}\n")
         else:
             out(f"Not installed: {', '.join(not_found)}\n")
+
+
+@lru_cache(maxsize=1)
+def _get_gpu_info() -> tuple[Optional[str], Optional[str]]:
+    """Get the GPU information."""
+    try:
+        from pyvista import GPUInfo
+
+        gi = GPUInfo()
+        return gi.version, gi.renderer
+    except Exception:
+        return None, None

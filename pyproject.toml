@@ -19,8 +19,8 @@ classifiers = [
   'Programming Language :: Python :: 3.9',
 ]
 dependencies = [
-  'mne_lsl',
-  'numpy>=1.21',
+  'mne_lsl>=1.3.1',
+  'numpy>=1.26.4',
   'packaging',
   'psutil',
   'pyparallel; sys_platform == "linux"',
@@ -32,6 +32,8 @@ keywords = [
   'python',
   'serial',
   'triggers',
+  'lsl',
+  'events',
 ]
 license = {file = 'LICENSE'}
 maintainers = [
@@ -55,6 +57,7 @@ build = [
 ]
 doc = [
   'furo',
+  'intersphinx_registry',
   'matplotlib',
   'memory-profiler',
   'numpydoc',
@@ -70,18 +73,17 @@ full = [
 ]
 style = [
   'bibclean',
-  'black',
-  'codespell',
+  'codespell[toml]>=2.2.4',
   'isort',
   'pydocstyle[toml]',
-  'ruff',
+  'ruff>=0.1.8',
   'toml-sort',
   'yamllint',
 ]
 test = [
-  'pytest',
   'pytest-cov',
   'pytest-timeout',
+  'pytest>=8.0',
 ]
 
 [project.scripts]
@@ -89,22 +91,14 @@ byte_triggers-sys_info = 'byte_triggers.commands.sys_info:run'
 
 [project.urls]
 documentation = 'https://fcbg-hnp-meeg.github.io/byte-triggers'
-homepage = 'https://fcbg-hnp-meeg.github.io/byte-triggers'
 source = 'https://github.com/fcbg-hnp-meeg/byte-triggers'
 tracker = 'https://github.com/fcbg-hnp-meeg/byte-triggers/issues'
 
-[tool.black]
-extend-exclude = '''
-(
-      __pycache__
-    | .github
-    | setup.py
-    | doc/
-)
-'''
-include = '\.pyi?$'
-line-length = 88
-target-version = ['py39']
+[tool.codespell]
+check-filenames = true
+check-hidden = true
+ignore-words = '.codespellignore'
+skip = 'build,.git,.mypy_cache,.pytest_cache,.venv'
 
 [tool.coverage.report]
 exclude_lines = [
@@ -130,7 +124,6 @@ omit = [
 [tool.isort]
 extend_skip_glob = [
   'doc/*',
-  'setup.py',
 ]
 line_length = 88
 multi_line_output = 3
@@ -141,23 +134,36 @@ py_version = 39
 add_ignore = 'D100,D104,D107'
 convention = 'numpy'
 ignore-decorators = '(copy_doc|property|.*setter|.*getter|pyqtSlot|Slot)'
-match = '^(?!setup|__init__|test_).*\.py'
+match = '^(?!__init__|test_).*\.py'
 match-dir = '^byte_triggers.*'
 
 [tool.pytest.ini_options]
 addopts = '--durations 20 --junit-xml=junit-results.xml --verbose'
-filterwarnings = []
-minversion = '6.0'
+minversion = '8.0'
 
 [tool.ruff]
 extend-exclude = [
-  "doc",
-  "setup.py",
+  'doc',
+  'byte_triggers/io',
 ]
 line-length = 88
+target-version = 'py39'
 
-[tool.ruff.per-file-ignores]
-"__init__.py" = ["F401"]
+[tool.ruff.format]
+docstring-code-format = true
+line-ending = "lf"
+
+[tool.ruff.lint]
+ignore = []
+select = ['A', 'B', 'E', 'F', 'G', 'LOG', 'NPY', 'PIE', 'PT', 'T20', 'UP', 'W']
+
+[tool.ruff.lint.per-file-ignores]
+'*' = [
+  'B904', # 'Within an except clause, raise exceptions with raise ... from ...'
+  'UP007', # 'Use `X | Y` for type annotations', requires python 3.10
+]
+'*.pyi' = ['E501']
+'__init__.py' = ['F401']
 
 [tool.setuptools]
 include-package-data = false

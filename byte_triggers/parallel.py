@@ -137,7 +137,7 @@ class ParallelPortTrigger(BaseTrigger):
             logger.info("Found arduino to LPT on '%s'.", arduino)
             return arduino.device
         else:
-            raise IOError("No arduino card was found.")
+            raise OSError("No arduino card was found.")
 
     def _connect_arduino(self, baud_rate: int = 115200) -> None:
         """Connect to an Arduino to LPT converter."""

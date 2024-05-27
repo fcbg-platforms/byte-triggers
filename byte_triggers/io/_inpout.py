@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # We deliberately delay importing the inpout32 or inpoutx64 module until we try
 # to use it - this allows us to import the class on machines
@@ -34,9 +33,9 @@ class PParallelInpOut:
             self.base = address
 
         if platform.architecture()[0] == "32bit":
-            self.port = getattr(windll, "inpout32")
+            self.port = windll.inpout32
         elif platform.architecture()[0] == "64bit":
-            self.port = getattr(windll, "inpoutx64")
+            self.port = windll.inpoutx64
 
         BYTEMODEMASK = uint8(1 << 5 | 1 << 6 | 1 << 7)
 

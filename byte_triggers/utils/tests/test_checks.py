@@ -1,18 +1,10 @@
-"""Test _checks.py"""
-
 import logging
 from pathlib import Path
 
 import numpy as np
 import pytest
 
-from byte_triggers.utils._checks import (
-    check_type,
-    check_value,
-    check_verbose,
-    ensure_int,
-    ensure_path,
-)
+from .._checks import check_type, check_value, check_verbose, ensure_int, ensure_path
 
 
 def test_ensure_int():

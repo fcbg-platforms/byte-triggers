@@ -1,9 +1,6 @@
 import pytest
 
-from byte_triggers import MockTrigger, logger, set_log_level
-
-set_log_level("INFO")
-logger.propagate = True
+from byte_triggers import MockTrigger
 
 
 def test_trigger_mock(caplog):

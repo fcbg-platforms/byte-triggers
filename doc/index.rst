@@ -5,7 +5,7 @@
 **Byte triggers**
 =================
 
-This package offers simple objcts to deliver triggers on serial port, parallel port or
+This package offers simple objects to deliver triggers on serial port, parallel port or
 LSL streams.
 
 Install

@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 # We deliberately delay importing the pyparallel module until we try
 # to use it - this allows us to import the class on machines
