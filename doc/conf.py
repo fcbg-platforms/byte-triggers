@@ -26,7 +26,7 @@ author = "Mathieu Scheltienne"
 copyright = f"{date.today().year}, {author}"
 release = byte_triggers.__version__
 package = byte_triggers.__name__
-gh_url = "https://github.com/fcbg-hnp-meeg/byte-triggers"
+gh_url = "https://github.com/fcbg-platforms/byte-triggers"
 
 # -- general configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

@@ -37,7 +37,7 @@ class LSLTrigger(BaseTrigger):
     * Number of channels: 1
     * Sampling rate: Irregular
     * Data type: ``np.int8``
-    * Source ID: ``f"HNP-{name}"``
+    * Source ID: ``f"FCBG-{name}"``
 
     The values sent must be in the range of strictly positive integers defined
     by ``np.int8``, 1 to 127 included.
@@ -53,7 +53,7 @@ class LSLTrigger(BaseTrigger):
             n_channels=1,
             sfreq=0.0,
             dtype="int8",
-            source_id=f"HNP-{name}",
+            source_id=f"FCBG-{name}",
         )
         self._sinfo.set_channel_names(["STI"])
         self._sinfo.set_channel_types(["stim"])

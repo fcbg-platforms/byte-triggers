@@ -1,8 +1,8 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
-[![codecov](https://codecov.io/gh/fcbg-hnp-meeg/byte-triggers/graph/badge.svg?token=rSGaJehUMl)](https://codecov.io/gh/fcbg-hnp-meeg/byte-triggers)
-[![tests](https://github.com/fcbg-hnp-meeg/byte-triggers/actions/workflows/pytest.yml/badge.svg?branch=main)](https://github.com/fcbg-hnp-meeg/byte-triggers/actions/workflows/pytest.yml)
-[![doc](https://github.com/fcbg-hnp-meeg/byte-triggers/actions/workflows/doc.yml/badge.svg?branch=main)](https://github.com/fcbg-hnp-meeg/byte-triggers/actions/workflows/doc.yml)
+[![codecov](https://codecov.io/gh/fcbg-platforms/byte-triggers/graph/badge.svg?token=rSGaJehUMl)](https://codecov.io/gh/fcbg-platforms/byte-triggers)
+[![tests](https://github.com/fcbg-platforms/byte-triggers/actions/workflows/pytest.yml/badge.svg?branch=main)](https://github.com/fcbg-platforms/byte-triggers/actions/workflows/pytest.yml)
+[![doc](https://github.com/fcbg-platforms/byte-triggers/actions/workflows/doc.yml/badge.svg?branch=main)](https://github.com/fcbg-platforms/byte-triggers/actions/workflows/doc.yml)
 
 # Byte-triggers
 
@@ -20,7 +20,7 @@ pip install byte_triggers
 ## Usage
 
 For the API reference, see the online
-[documentation](https://fcbg-hnp-meeg.github.io/byte-triggers).
+[documentation](https://fcbg-platforms.github.io/byte-triggers).
 
 ```
 from byte_triggers import LSLTrigger, MockTrigger, ParallelPortTrigger
