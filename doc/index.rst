@@ -28,8 +28,7 @@ Install
 Supporting institutions
 -----------------------
 
-The development is supported by the
-`Human Neuroscience Platform, Fondation Campus Biotech Geneva <fcbg_>`_.
+The development is supported by the `Fondation Campus Biotech Geneva <fcbg_>`_.
 
 .. image:: _static/partners/FCBG.svg
     :alt: FCBG - M/EEG-NMOD Platform
