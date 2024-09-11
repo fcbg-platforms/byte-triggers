@@ -90,9 +90,9 @@ test = [
 byte_triggers-sys_info = 'byte_triggers.commands.sys_info:run'
 
 [project.urls]
-documentation = 'https://fcbg-hnp-meeg.github.io/byte-triggers'
-source = 'https://github.com/fcbg-hnp-meeg/byte-triggers'
-tracker = 'https://github.com/fcbg-hnp-meeg/byte-triggers/issues'
+documentation = 'https://fcbg-platforms.github.io/byte-triggers'
+source = 'https://github.com/fcbg-platforms/byte-triggers'
+tracker = 'https://github.com/fcbg-platforms/byte-triggers/issues'
 
 [tool.codespell]
 check-filenames = true

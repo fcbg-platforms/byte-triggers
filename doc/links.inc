@@ -9,7 +9,7 @@
 
 .. fcbg
 
-.. _fcbg hnp: https://hnp.fcbg.ch/
+.. _fcbg: https://fcbg.ch/
 
 
 .. mne

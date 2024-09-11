@@ -23,16 +23,16 @@ Install
 
         .. code-block:: console
 
-            $ pip install git+https://github.com/fcbg-hnp-meeg/byte-triggers
+            $ pip install git+https://github.com/fcbg-platforms/byte-triggers
 
 Supporting institutions
 -----------------------
 
 The development is supported by the
-`Human Neuroscience Platform, Fondation Campus Biotech Geneva <fcbg hnp_>`_.
+`Human Neuroscience Platform, Fondation Campus Biotech Geneva <fcbg_>`_.
 
-.. image:: _static/partners/fcbg-hnp-meeg.png
-    :alt: FCBG - HNP - MEEG/BCI Platform
+.. image:: _static/partners/FCBG.svg
+    :alt: FCBG - M/EEG-NMOD Platform
     :width: 150
 
 .. toctree::
